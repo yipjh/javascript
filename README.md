@@ -12,28 +12,39 @@ You aren’t expected to spend more than 30-60 minutes on this task (we respect 
 
 You are free to use the internet but must solve this task yourself.
 
-During your interview you will be asked to present (in any way you like) your thought process on how you when about completing this task.
+During your interview you will be asked to present (in any way you like) your thought process on how you went about completing this task.
 
 ## How to use
 
-Install Git and NodeJS on your system.
+Install [Git](https://git-scm.com/downloads) and [NodeJS](https://nodejs.org/en/) on your system.
 
-Create a repo in your github account (do not fork via github!).
+Verify that the above software has been downloaded correctly by executing the following commands in a terminal:
+
+`git -v`\
+`node -v`\
+`npm -v`
+
+The above commands should print a version number in the console. If you receive a message like "**X** is not recognized as an internal or external command, operable program or batch file", it may be because the software has not been added to your PATH system variable. To add the software to the path variable, search “Edit the system environment variables” in the search box. Find the ‘Path’ variable in both the ‘User Variables’ and ‘Environment Variables’ sections and add the install location of the above software (_e.g. C:\Program Files\nodejs_). 
+
+
+Create a repo in your GitHub account (do not fork via GitHub!).
 
 Then clone the contents of this repo into it:
 ```sh
-git clone https://github.com/ethull/recruitment-js-challenge.git
-cd recruitment-js-challenge
+git clone https://github.com/Sampuddy/JavaScript-Challenge-master.git
+cd JavaScript-Challenge-master
 git remote rename origin upstream
 git remote add origin https://github.com/your_github_account/your-repo.git
 git push -u origin
 ```
 
-Install backend dependencies with npm.
+Install backend dependencies with the command `npm install`.
 
-Run the backend service, and serve static files with npm.
+Run the backend service and serve static files with the command `npm run start`.
 
-Once complete share your github repo url with your company contact.
+You can now begin development. To view and test the changes you have made, save the file and restart the local server by executing `npm run start` again (alternatively, install the ‘Live Server’ VS Code extension, or a similar extension if you are using another IDE, and you can view your changes in realtime).
+
+Once complete share your GitHub repo URL with your company contact.
 
 Then prepare whatever method you would like to present.
 
