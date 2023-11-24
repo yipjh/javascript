@@ -1,10 +1,25 @@
-.spinner{
-  font-size: 140px;
+.spinner {
+  display: flex;
+  justify-content: center;
 }
-.spinner:after {
-  content: '◌';
+
+.spinner::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  border: 10px solid #dddddd;
+  border-top-color: #009579;
+  border-bottom-color: #009579;
+  border-radius: 50%;
+  animation: spinner 1s ease infinite
+}
+
+@keyframes spinner {
+  to {
+      transform: rotate(1turn);
+  }
 }
 
 #chart {
-    border: 1px solid black;
+  border: 1px solid black;
 }
