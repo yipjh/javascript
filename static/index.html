@@ -8,8 +8,68 @@
 <body>
     <div class="spinner"></div>
 
-<canvas id="chart" width="1000" height="600"></canvas>
+    <canvas id="chart" width="1000" height="600"></canvas>
 
-<script src="scripts.js" defer></script>
+    <div id="stockList">
+
+    </div>
+
+    <script src="scripts.js" defer></script>
+    <script>
+
+        let stocksDataLoaded = false;
+
+        function hideSpinner() {
+            const spinner = document.querySelector('.spinner');
+            spinner.style.display = 'none';
+        
+        }
+        // fetches stock data  for the given symbol
+        async function fetchStockData(symbol) {
+            try {
+                const stockDataResponse = await fetch(`http://localhost:3000/stocks/${symbol}`);
+                const stockData = await stockDataResponse.json();
+                // logs stock data to the console
+                console.log(`Stock Data for ${symbol}:`, stockData);
+                return `<li>${symbol}</li>`;
+            } catch (error) {
+                // log an error if fetching data fails
+                console.error(`Error fetching data for ${symbol}:`, error);
+                return null;
+            }
+        }
+        // process promises for fetching stock data
+        async function processStockPromises(data) {
+            const stockPromises = data.stockSymbols.map(fetchStockData);
+            const htmlArray = await Promise.all(stockPromises);
+            return htmlArray.filter(Boolean).join('');
+        }
+
+        // fetch the list of available stocks
+        fetch('http://localhost:3000/stocks')
+            .then(response => {
+                // check if successful
+                if (!response.ok) {
+                    // throw error if unsuccessful
+                    throw new Error(`Failed to fetch stock symbols. Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const stockList = document.getElementById('stockList');
+                processStockPromises(data)
+                    .then(html => {
+                        stockList.innerHTML = html;
+                        // set flat to indicate stock data loaded
+                        stocksDataLoaded = true;
+                        // hide spinner after a delay
+                        setTimeout(() => {
+                            hideSpinner();
+                        }, 3000);
+                    })
+                    .catch(error => console.error('Error processing stock promises:', error));
+            })
+            .catch(error => console.error('Error fetching stock symbols:', error));
+    </script>
 </body>
 </html>
