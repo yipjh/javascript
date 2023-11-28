@@ -7,7 +7,7 @@ const app = express();
 app.use(cors()); // enables different port connections for FE and BE
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.get('/stocks', async (req, res) => {
+app.get('/stocks', async (res) => {
   try {
     const stockSymbols = await stocks.getStocks();
     res.send({ stockSymbols });
@@ -28,7 +28,7 @@ app.get('/stocks/:symbol', async (req, res) => {
   }
 });
 // generic error handler
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   console.error('Error:', err.message);
   res.status(500).send('Internal Server Error');
 });

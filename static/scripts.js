@@ -9,15 +9,6 @@ function drawLine (start, end, style) {
   ctx.stroke()
 }
 
-function formatDate(timestamp) {
-  const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  return `${hours}:${minutes}:${seconds}`;
-}
-
-
 function drawLineChart(stockData, color) {
   const timestamps = stockData.map(point => new Date(point.timestamp).getTime());
   const values = stockData.map(point => point.value);
@@ -59,11 +50,9 @@ function drawLineChart(stockData, color) {
     ctx.fillStyle = 'black';
     ctx.font = '10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(formatDate(new Date(timestamps[i])), x, canvas.height + 15);
   }
 
   const numTicks = 5; 
-  const yTickInterval = (maxValue - minValue) / numTicks;
 
   for (let i = 0; i <= numTicks; i++) {
       const y = canvas.height - i * (canvas.height / numTicks);
@@ -71,7 +60,6 @@ function drawLineChart(stockData, color) {
       ctx.fillStyle = 'black';
       ctx.font = '10px Arial';
       ctx.textAlign = 'right';
-      ctx.fillText((minValue + i * yTickInterval).toFixed(2), 0, y + 3);
   }
 
   for (let i = 0; i < timestamps.length - 1; i++) {
@@ -111,4 +99,4 @@ function fetchAndDrawAllStocks() {
   });
 }
 */
-fetchAndDrawStock('IBM');
+fetchAndDrawStock('EA', 'green');
